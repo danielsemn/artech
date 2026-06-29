@@ -172,7 +172,7 @@ projectForm.addEventListener('submit', async (event) => {
   projectFormMessage.textContent = 'Enviando sua proposta...';
 
   try {
-    const response = await fetch('salvar_projeto.php', {
+    const response = await fetch('salvar-projeto.php', {
       method: 'POST',
       body: formData
     });

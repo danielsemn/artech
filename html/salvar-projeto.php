@@ -1,17 +1,12 @@
 <?php
-// Exibe erros na tela durante a fase de desenvolvimento
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// Configurações do banco de dados
+$host     = 'localhost';
+$dbname   = 'artech_db';
+$username = 'root';
+$password = '';
 
 // Define o cabeçalho para retornar JSON
 header('Content-Type: application/json; charset=utf-8');
-
-// Configurações do banco de dados (Espaço extra removido do dbname)
-$host     = 'não';
-$dbname   = 'não'; // <-- Corrigido: Removido o espaço do final
-$username = 'não';
-$password = 'não';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
@@ -20,13 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Coleta e sanitiza os dados do formulário
-        $nome      = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
-        $email     = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-        $telefone  = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS);
-        $titulo    = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
+        $nome = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+        $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+        $telefone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS);
+        $titulo = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
         $descricao = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_SPECIAL_CHARS);
         $orcamento = filter_input(INPUT_POST, 'budget', FILTER_SANITIZE_SPECIAL_CHARS);
-        $prazo     = filter_input(INPUT_POST, 'deadline', FILTER_SANITIZE_SPECIAL_CHARS);
+        $prazo = filter_input(INPUT_POST, 'deadline', FILTER_SANITIZE_SPECIAL_CHARS);
 
         // Validação simples dos campos obrigatórios
         if (!$nome || !$email || !$titulo || !$descricao) {
@@ -57,17 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
     } catch (PDOException $e) {
-        // Mensagem amigável explicando o bloqueio caso esteja rodando em localhost
-        if (strpos($e->getMessage(), 'Connection refused') !== false || strpos($e->getMessage(), 'timed out') !== false) {
-            echo json_encode([
-                'status' => 'error', 
-                'message' => 'A InfinityFree bloqueia conexões do localhost. Hospede os arquivos do site no painel deles (Online File Manager) para funcionar!'
-            ]);
-        } else {
-            echo json_encode(['status' => 'error', 'message' => 'Erro de conexão com o banco: ' . $e->getMessage()]);
-        }
+        // Em produção, mude para uma mensagem genérica e salve o $e->getMessage() em um log
+        echo json_encode(['status' => 'error', 'message' => 'Erro de conexão com o banco: ' . $e->getMessage()]);
     }
 } else {
     echo json_encode(['status' => 'error', 'message' => 'Método de requisição inválido.']);
 }
-exit;
