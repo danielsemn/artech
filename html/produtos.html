@@ -19,7 +19,6 @@
             </li>
             <li><a href="../index.html">Início</a></li>
             <li><a href="produtos.html">Produtos</a></li>
-            <li><a href="#">Projetos</a></li>
             <li><a href="#">Sobre</a></li>
             <li><a href="#">Contato</a></li>
             <li class="cart-pill">
@@ -46,8 +45,8 @@
             <button class="modal-close" id="closeLoginModal" type="button" aria-label="Fechar">×</button>
             <p class="eyebrow">Entrar</p>
             <form id="loginForm" class="login-form">
-                <input id="loginName" type="text" placeholder="Seu nome" />
-                <input id="loginEmail" type="email" placeholder="Seu e-mail" />
+                <input id="loginName" type="text" placeholder="E-mail" />
+                <input id="loginEmail" type="email" placeholder="Senha" />
                 <button type="submit">Entrar</button>
                 <p id="loginError" class="login-error"></p>
             </form>
@@ -72,22 +71,16 @@
 
         <section class="produtos-section" aria-label="Lista de produtos">
             <div class="produtos-grid">
-                <article class="produto-card">
-                    <img src="../img/produtos/exemplo.jpg" alt="Módulo de controle industrial" />
-                    <h3>Módulo de Controle Industrial</h3>
-                    <p>Plataforma robusta para automação de linhas e processos com integração simples.</p>
-                    <div class="produto-preco">R$ 1.890,00</div>
+                <article class="produto-card featured-product">
+                    <span class="featured-badge">Em destaque</span>
+                    <img src="../img/produtos/exemplo.jpg" alt="Projeto personalizado ArTech" />
+                    <h3>Projeto Personalizado</h3>
+                    <p>Conte sua ideia para a ArTech e receba uma análise da proposta, um orçamento sob medida e uma resposta especializada para o seu projeto.</p>
+                    <div class="produto-preco">Orçamento sob demanda</div>
                     <div class="produto-actions">
-                        <button class="action-btn details-btn" type="button" data-title="Módulo de Controle Industrial"
-                            data-price="R$ 1.890,00"
-                            data-description="Ideal para linhas de produção que precisam de supervisão, controle e integração com sistemas industriais modernos."
-                            data-details="• Controle em tempo real • Integração com PLCs • Alta confiabilidade">Ver
-                            detalhes</button>
-                        <button class="action-btn cart-btn" type="button" data-name="Módulo de Controle Industrial"
-                            data-price="R$ 1.890,00">🛒 Adicionar</button>
+                        <button class="action-btn custom-project-btn" type="button">Enviar meu projeto</button>
                     </div>
-                    <a class="btn-pdf" href="../pdf/manual-artech.pdf" target="_blank" rel="noopener noreferrer">Ver
-                        manual em PDF</a>
+                    <p class="featured-note">Ideal para automação, integração, protótipos e soluções exclusivas.</p>
                 </article>
 
                 <article class="produto-card">
@@ -352,6 +345,31 @@
             <div id="modalPrice" class="produto-preco"></div>
             <p id="modalDescription"></p>
             <ul id="modalDetails"></ul>
+        </div>
+    </div>
+
+    <div id="projectModal" class="modal popup-modal" hidden>
+        <div class="modal-content project-modal-content">
+            <button class="modal-close" id="closeProjectModal" type="button" aria-label="Fechar">×</button>
+            <p class="eyebrow">Projeto personalizado</p>
+            <h3>Conte sua ideia para a ArTech</h3>
+            <p class="project-modal-copy">Preencha os dados abaixo e nossa equipe analisará sua proposta, montará um orçamento e retornará com a melhor solução.</p>
+            <form id="projectForm" class="project-form">
+                <div class="project-form-row">
+                    <input id="projectName" name="name" type="text" placeholder="Seu nome" required />
+                    <input id="projectEmail" name="email" type="email" placeholder="Seu e-mail" required />
+                </div>
+                <input id="projectPhone" name="phone" type="tel" placeholder="Telefone" />
+                <input id="projectTitle" name="title" type="text" placeholder="Nome do projeto" required />
+                <textarea id="projectDescription" name="description" rows="4"
+                    placeholder="Descreva sua ideia, necessidades, prazo e detalhes do projeto" required></textarea>
+                <div class="project-form-row">
+                    <input id="projectBudget" name="budget" type="text" placeholder="Faixa orçamentária (opcional)" />
+                    <input id="projectDeadline" name="deadline" type="text" placeholder="Prazo desejado" />
+                </div>
+                <button class="action-btn cart-btn project-submit-btn" type="submit">Enviar proposta</button>
+                <p id="projectFormMessage" class="project-form-message" aria-live="polite"></p>
+            </form>
         </div>
     </div>
 

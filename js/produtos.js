@@ -20,6 +20,11 @@ const cartItemsList = document.getElementById('cartItemsList');
 const cartEmpty = document.getElementById('cartEmpty');
 const cartTotal = document.getElementById('cartTotal');
 const checkoutBtn = document.getElementById('checkoutBtn');
+const projectModal = document.getElementById('projectModal');
+const closeProjectModal = document.getElementById('closeProjectModal');
+const projectForm = document.getElementById('projectForm');
+const projectFormMessage = document.getElementById('projectFormMessage');
+const customProjectBtn = document.querySelector('.custom-project-btn');
 
 let cartItems = [];
 
@@ -66,6 +71,18 @@ function openCartModal() {
 
 function closeCartModalWindow() {
   cartModal.hidden = true;
+  document.body.classList.remove('modal-open');
+}
+
+function openProjectModal() {
+  projectFormMessage.textContent = '';
+  projectForm.reset();
+  projectModal.hidden = false;
+  document.body.classList.add('modal-open');
+}
+
+function closeProjectModalWindow() {
+  projectModal.hidden = true;
   document.body.classList.remove('modal-open');
 }
 
@@ -125,12 +142,36 @@ closeCartModal.addEventListener('click', closeCartModalWindow);
 cartModal.addEventListener('click', (event) => {
   if (event.target === cartModal) closeCartModalWindow();
 });
+closeProjectModal.addEventListener('click', closeProjectModalWindow);
+projectModal.addEventListener('click', (event) => {
+  if (event.target === projectModal) closeProjectModalWindow();
+});
+
+customProjectBtn.addEventListener('click', openProjectModal);
+
+projectForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const name = document.getElementById('projectName').value.trim();
+  const email = document.getElementById('projectEmail').value.trim();
+  const title = document.getElementById('projectTitle').value.trim();
+  const description = document.getElementById('projectDescription').value.trim();
+
+  if (!name || !email || !title || !description) {
+    projectFormMessage.textContent = 'Preencha os campos obrigatórios para enviar sua proposta.';
+    return;
+  }
+
+  projectFormMessage.textContent = 'Sua proposta foi enviada com sucesso! A ArTech analisará e retornará em breve.';
+  showToast('Proposta enviada com sucesso!');
+  closeProjectModalWindow();
+});
 
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
     if (!modal.hidden) closeModalWindow();
     if (!loginModal.hidden) closeLoginModalWindow();
     if (!cartModal.hidden) closeCartModalWindow();
+    if (!projectModal.hidden) closeProjectModalWindow();
   }
 });
 
@@ -170,13 +211,11 @@ checkoutBtn.addEventListener('click', () => {
 function renderAuth() {
   const user = localStorage.getItem('artechUser');
   if (user) {
-    loginPanel.hidden = true;
     userGreeting.hidden = false;
     userGreeting.textContent = `Olá, ${user}`;
     logoutBtn.hidden = false;
     loginBtn.hidden = true;
   } else {
-    loginPanel.hidden = true;
     userGreeting.hidden = true;
     logoutBtn.hidden = true;
     loginBtn.hidden = false;

@@ -52,6 +52,34 @@
   border-color: rgba(0, 212, 255, 0.35);
 }
 
+.produto-card.featured-product {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(0, 212, 255, 0.45);
+  background: linear-gradient(145deg, rgba(0, 212, 255, 0.16), rgba(255, 255, 255, 0.04));
+  box-shadow: 0 18px 45px rgba(0, 212, 255, 0.16);
+  transform: translateY(-4px);
+}
+
+.featured-badge {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(0, 212, 255, 0.16);
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.featured-note {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
 .produto-card img {
   height: 160px;
   width: 100%;
@@ -255,6 +283,52 @@
 .user-greeting {
   color: var(--accent);
   font-weight: 700;
+}
+
+.project-modal-content {
+  width: min(560px, 100%);
+}
+
+.project-form {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.project-form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.project-form input,
+.project-form textarea {
+  width: 100%;
+  padding: 0.8rem 0.95rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+}
+
+.project-form textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.project-submit-btn {
+  width: 100%;
+}
+
+.project-form-message {
+  min-height: 1.2rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.project-modal-copy {
+  color: var(--text-muted);
+  line-height: 1.6;
 }
 
 .modal {
