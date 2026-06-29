@@ -126,10 +126,12 @@ function updateCartCount() {
   document.getElementById('cartCount').textContent = cartItems.length;
 }
 
+// Eventos dos botões de detalhes
 document.querySelectorAll('.details-btn').forEach((button) => {
   button.addEventListener('click', () => openModal(button));
 });
 
+// Fechamento de Modais
 closeModal.addEventListener('click', closeModalWindow);
 modal.addEventListener('click', (event) => {
   if (event.target === modal) closeModalWindow();
@@ -149,23 +151,55 @@ projectModal.addEventListener('click', (event) => {
 
 customProjectBtn.addEventListener('click', openProjectModal);
 
-projectForm.addEventListener('submit', (event) => {
+// ENVIO DO FORMULÁRIO DE PROPOSTAS (UNIFICADO COM BACK-END)
+projectForm.addEventListener('submit', async (event) => {
   event.preventDefault();
+
   const name = document.getElementById('projectName').value.trim();
   const email = document.getElementById('projectEmail').value.trim();
   const title = document.getElementById('projectTitle').value.trim();
   const description = document.getElementById('projectDescription').value.trim();
 
   if (!name || !email || !title || !description) {
+    projectFormMessage.style.color = 'red';
     projectFormMessage.textContent = 'Preencha os campos obrigatórios para enviar sua proposta.';
     return;
   }
 
-  projectFormMessage.textContent = 'Sua proposta foi enviada com sucesso! A ArTech analisará e retornará em breve.';
-  showToast('Proposta enviada com sucesso!');
-  closeProjectModalWindow();
+  const formData = new FormData(projectForm);
+
+  projectFormMessage.style.color = '#333';
+  projectFormMessage.textContent = 'Enviando sua proposta...';
+
+  try {
+    const response = await fetch('salvar_projeto.php', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (!response.ok) {
+      throw new Error('Erro na resposta do servidor.');
+    }
+
+    const result = await response.json();
+
+    if (result.status === 'success') {
+      showToast('Proposta enviada com sucesso!');
+      projectForm.reset();
+      closeProjectModalWindow();
+    } else {
+      projectFormMessage.style.color = 'red';
+      projectFormMessage.textContent = result.message;
+    }
+
+  } catch (error) {
+    projectFormMessage.style.color = 'red';
+    projectFormMessage.textContent = 'Houve um erro ao enviar. Por favor, tente novamente.';
+    console.error('Erro:', error);
+  }
 });
 
+// Tecla ESC para fechar modais
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
     if (!modal.hidden) closeModalWindow();
@@ -175,8 +209,11 @@ document.addEventListener('keydown', (event) => {
   }
 });
 
+// Adicionar ao carrinho (Ignora o botão do modal de projetos se você removeu a classe 'cart-btn' dele no HTML)
 document.querySelectorAll('.cart-btn').forEach((button) => {
   button.addEventListener('click', () => {
+    if (!button.dataset.price) return; // Evita erros caso clique em botões sem preço
+    
     const itemPrice = Number(button.dataset.price.replace(/[R$\.\s]/g, '').replace(',', '.'));
     cartItems.push({
       name: button.dataset.name,
@@ -208,6 +245,7 @@ checkoutBtn.addEventListener('click', () => {
   showToast('Compra finalizada com sucesso!');
 });
 
+// Autenticação (Login fictício)
 function renderAuth() {
   const user = localStorage.getItem('artechUser');
   if (user) {
