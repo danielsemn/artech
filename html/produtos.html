@@ -1,33 +1,214 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ArTech | Automação Inteligente</title>
+    <title>Produtos ArTech</title>
     <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/segundo.css" />
 </head>
 
 <body>
-    <!-- HEADER -->
     <header>
         <ul>
             <li>
-                <a href="#">
+                <a href="../index.html">
                     <img src="../img/logo.png" alt="ArTech" />
                 </a>
             </li>
-
-            <li><a href="#">Início</a></li>
-            <li><a href="#">Kits</a></li>
-            <li><a href="#">Projetos</a></li>
+            <li><a href="../index.html">Início</a></li>
+            <li><a href="produtos.html">Produtos</a></li>
             <li><a href="#">Sobre</a></li>
             <li><a href="#">Contato</a></li>
+            <li class="cart-pill">
+                <button id="cartButton" class="cart-button" type="button" aria-label="Abrir carrinho">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M3 4h2l2 10h10l2-6H8" fill="none" stroke="currentColor" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="1.8"></path>
+                        <circle cx="10" cy="19" r="1.4" fill="currentColor"></circle>
+                        <circle cx="17" cy="19" r="1.4" fill="currentColor"></circle>
+                    </svg>
+                    <span id="cartCount">0</span>
+                </button>
+            </li>
+            <li class="auth-pill">
+                <button id="loginBtn" class="login-btn" type="button">Entrar</button>
+                <span id="userGreeting" class="user-greeting" hidden></span>
+                <button id="logoutBtn" class="logout-btn" type="button" hidden>Sair</button>
+            </li>
         </ul>
     </header>
 
-    
+    <div id="loginModal" class="modal popup-modal" hidden>
+        <div class="modal-content">
+            <button class="modal-close" id="closeLoginModal" type="button" aria-label="Fechar">×</button>
+            <p class="eyebrow">Entrar</p>
+            <form id="loginForm" class="login-form">
+                <input id="loginName" type="text" placeholder="E-mail" />
+                <input id="loginEmail" type="email" placeholder="Senha" />
+                <button type="submit">Entrar</button>
+                <p id="loginError" class="login-error"></p>
+            </form>
+        </div>
+    </div>
 
+    <main>
+        <section class="hero-produtos">
+            <div class="hero-content">
+                <div class="hero-texto">
+                    <p class="eyebrow">Catálogo completo</p>
+                    <h1>Produtos ArTech para automação, controle e inovação.</h1>
+                    <p class="microtexto">
+                        Explore nossa coleção de soluções inteligentes com documentação pronta para download em PDF.
+                    </p>
+                </div>
+                <div class="hero-imagem">
+                    <img src="../img/automacao.png" alt="Automação ArTech" />
+                </div>
+            </div>
+        </section>
+
+        <section class="produtos-section" aria-label="Lista de produtos">
+            <div class="produtos-grid">
+                <article class="produto-card featured-product">
+                    <span class="featured-badge">Em destaque</span>
+                    <img src="../img/produtos/exemplo.jpg" alt="Projeto personalizado ArTech" />
+                    <h3>Projeto Personalizado</h3>
+                    <p>Conte sua ideia para a ArTech e receba uma análise da proposta, um orçamento sob medida e uma resposta especializada para o seu projeto.</p>
+                    <div class="produto-preco">Orçamento sob demanda</div>
+                    <div class="produto-actions">
+                        <button class="action-btn custom-project-btn" type="button">Enviar meu projeto</button>
+                    </div>
+                    <p class="featured-note">Ideal para automação, integração, protótipos e soluções exclusivas.</p>
+                </article>
+
+                <article class="produto-card">
+                    <img src="../img/produtos/exemplo.jpg" alt="Kit de sensores" />
+                    <h3>Kit de Sensores Inteligentes</h3>
+                    <p>Conjunto de sensores para coleta de dados em tempo real e análise de desempenho.</p>
+                    <div class="produto-preco">R$ 1.240,00</div>
+                    <div class="produto-actions">
+                        <button class="action-btn details-btn" type="button" data-title="Kit de Sensores Inteligentes"
+                            data-price="R$ 1.240,00"
+                            data-description="Conjunto completo para levantamento preciso de dados em ambientes comerciais e industriais."
+                            data-details="• Sensores de presença • Monitoramento remoto • Precisão superior">Ver detalhes</button>
+                        <button class="action-btn cart-btn" type="button" data-name="Kit de Sensores Inteligentes"
+                            data-price="R$ 1.240,00">🛒 Adicionar</button>
+                    </div>
+                    <a class="btn-pdf" href="../pdf/manual-artech.pdf" target="_blank" rel="noopener noreferrer">Ver manual em PDF</a>
+                </article>
+
+                <article class="produto-card">
+                    <img src="../img/produtos/exemplo.jpg" alt="Painel de supervisão" />
+                    <h3>Painel de Supervisão</h3>
+                    <p>Interface visual para monitoramento e controle remoto da operação.</p>
+                    <div class="produto-preco">R$ 2.150,00</div>
+                    <div class="produto-actions">
+                        <button class="action-btn details-btn" type="button" data-title="Painel de Supervisão"
+                            data-price="R$ 2.150,00"
+                            data-description="Painel intuitivo para visualizar processos, alarmes e indicadores de produção em tempo real."
+                            data-details="• Dashboard personalizado • Alertas automáticos • Acesso remoto">Ver detalhes</button>
+                        <button class="action-btn cart-btn" type="button" data-name="Painel de Supervisão"
+                            data-price="R$ 2.150,00">🛒 Adicionar</button>
+                    </div>
+                    <a class="btn-pdf" href="../pdf/manual-artech.pdf" target="_blank" rel="noopener noreferrer">Ver manual em PDF</a>
+                </article>
+
+                <article class="produto-card">
+                    <img src="../img/produtos/exemplo.jpg" alt="Central de energia" />
+                    <h3>Central de Energia</h3>
+                    <p>Estrutura eficiente para distribuição e gestão energética em ambientes modernos.</p>
+                    <div class="produto-preco">R$ 3.480,00</div>
+                    <div class="produto-actions">
+                        <button class="action-btn details-btn" type="button" data-title="Central de Energia"
+                            data-price="R$ 3.480,00"
+                            data-description="Solução prática para controlar e otimizar o consumo energético em instalações maiores."
+                            data-details="• Gestão inteligente • Baixo desperdício • Segurança elétrica">Ver detalhes</button>
+                        <button class="action-btn cart-btn" type="button" data-name="Central de Energia"
+                            data-price="R$ 3.480,00">🛒 Adicionar</button>
+                    </div>
+                    <a class="btn-pdf" href="../pdf/manual-artech.pdf" target="_blank" rel="noopener noreferrer">Ver manual em PDF</a>
+                </article>
+
+                <article class="produto-card">
+                    <img src="../img/produtos/exemplo.jpg" alt="Dispositivo IoT" />
+                    <h3>Dispositivo IoT</h3>
+                    <p>Módulo conectado para monitoramento remoto via rede e integração com aplicações.</p>
+                    <div class="produto-preco">R$ 820,00</div>
+                    <div class="produto-actions">
+                        <button class="action-btn details-btn" type="button" data-title="Dispositivo IoT"
+                            data-price="R$ 820,00"
+                            data-description="Equipamento compacto para conectar ativos à internet e acompanhar o desempenho em tempo real."
+                            data-details="• Conectividade Wi-Fi • Dados em nuvem • Alertas automáticos">Ver detalhes</button>
+                        <button class="action-btn cart-btn" type="button" data-name="Dispositivo IoT"
+                            data-price="R$ 820,00">🛒 Adicionar</button>
+                    </div>
+                    <a class="btn-pdf" href="../pdf/manual-artech.pdf" target="_blank" rel="noopener noreferrer">Ver manual em PDF</a>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <div id="productModal" class="modal" hidden>
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal" type="button" aria-label="Fechar">×</button>
+            <p class="eyebrow">Detalhes do produto</p>
+            <h3 id="modalTitle">Produto</h3>
+            <div id="modalPrice" class="produto-preco"></div>
+            <p id="modalDescription"></p>
+            <ul id="modalDetails"></ul>
+        </div>
+    </div>
+
+<div id="projectModal" class="modal popup-modal" hidden>
+    <div class="modal-content project-modal-content">
+        <button class="modal-close" id="closeProjectModal" type="button" aria-label="Fechar">×</button>
+        <p class="eyebrow">Projeto personalizado</p>
+        <h3>Conte sua ideia para a ArTech</h3>
+        <p class="project-modal-copy">Preencha os dados abaixo e nossa equipe analisará sua proposta, montará um orçamento e retornará com a melhor solução.</p>
+        
+        <form id="projectForm" class="project-form">
+            <div class="project-form-row">
+                <input id="projectName" name="name" type="text" placeholder="Seu nome" required />
+                <input id="projectEmail" name="email" type="email" placeholder="Seu e-mail" required />
+            </div>
+            <input id="projectPhone" name="phone" type="tel" placeholder="Telefone" />
+            <input id="projectTitle" name="title" type="text" placeholder="Nome do projeto" required />
+            <textarea id="projectDescription" name="description" rows="4" placeholder="Descreva sua ideia, necessidades, prazo e detalhes do projeto" required></textarea>
+            
+            <div class="project-form-row">
+                <input id="projectBudget" name="budget" type="text" placeholder="Faixa orçamentária (opcional)" />
+                <input id="projectDeadline" name="deadline" type="text" placeholder="Prazo desejado" />
+            </div>
+            <button class="action-btn project-submit-btn" type="submit">Enviar proposta</button>
+            
+            <p id="projectFormMessage" class="project-form-message" aria-live="polite"></p>
+        </form>
+    </div>
+</div>
+
+    <div id="cartModal" class="modal popup-modal" hidden>
+        <div class="modal-content">
+            <button class="modal-close" id="closeCartModal" type="button" aria-label="Fechar">×</button>
+            <p class="eyebrow">Carrinho</p>
+            <div id="cartEmpty" class="cart-empty">Seu carrinho está vazio.</div>
+            <ul id="cartItemsList" class="cart-items-list"></ul>
+            <div id="cartSummary" class="cart-summary">
+                <span>Total</span>
+                <strong id="cartTotal">R$ 0,00</strong>
+            </div>
+            <button id="checkoutBtn" class="action-btn cart-checkout-btn" type="button">Finalizar compra</button>
+        </div>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <footer>
+        <p>© 2026 ArTech — Soluções inteligentes para o futuro.</p>
+    </footer>
+
+    <script src="../js/produtos.js"></script>
 </body>
 
 </html>
