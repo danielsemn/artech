@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | ArTech</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="login-page">
+    <header>
+        <div class="header-inner">
+            <a class="brand" href="../index.html">
+                <img src="../img/logo.png" alt="ArTech" />
+            </a>
+            <nav class="nav-links" aria-label="Navegação principal">
+                <a href="../index.html">Início</a>
+                <a href="produtos.html">Produtos</a>
+                <a href="sobre.html">Sobre</a>
+                <a href="contato.html">Contato</a>
+            </nav>
+            <div class="header-tools">
+                <div class="cart-pill">
+                    <button id="cartButton" class="cart-button" type="button" aria-label="Abrir carrinho">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M3 4h2l2 10h10l2-6H8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+                            <circle cx="10" cy="19" r="1.4" fill="currentColor"></circle>
+                            <circle cx="17" cy="19" r="1.4" fill="currentColor"></circle>
+                        </svg>
+                        <span id="cartCount">0</span>
+                    </button>
+                </div>
+                <div class="auth-pill">
+                    <a id="loginBtn" class="login-btn" href="login.html">Entrar</a>
+                    <span id="userGreeting" class="user-greeting" hidden></span>
+                    <a id="logoutBtn" class="logout-btn" href="login.html" hidden>Sair</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="login-section">
+            <div class="login-container">
+                <h2>Login</h2>
+                <form id="loginForm" class="login-form" action="login.php" method="POST">
+                    <input type="email" name="email" placeholder="E-mail" required>
+                    <input type="password" name="senha" placeholder="Senha" required>
+                    <div class="form-actions">
+                        <label class="remember-me">
+                            <input type="checkbox" id="remember" name="remember">
+                            <span>Lembrar-me</span>
+                        </label>
+                        <a href="#" class="forgot-password">Esqueceu senha?</a>
+                    </div>
+                    <button type="submit">Entrar</button>
+                    <a class="login-link-btn" href="cadastro.html">Cadastrar</a>
+                    <p id="loginMessage" class="login-error"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div>
+                <h3>ArTech</h3>
+                <p>Automação inteligente para residências e negócios.</p>
+            </div>
+            <div>
+                <h4>Contato</h4>
+                <a href="mailto:contato@artech.com.br">contato@artech.com.br</a>
+                <a href="https://wa.me/5531999999999" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const formLogin = document.getElementById('loginForm');
+        const messageLogin = document.getElementById('loginMessage');
+        const loginBtn = document.getElementById('loginBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const userGreeting = document.getElementById('userGreeting');
+
+        function setMessage(message, type = 'error') {
+            if (!messageLogin) return;
+            messageLogin.textContent = message || '';
+            messageLogin.classList.remove('login-success');
+            if (type === 'success') {
+                messageLogin.classList.add('login-success');
+            }
+            messageLogin.hidden = !message;
+        }
+
+        function renderAuthState() {
+            const user = localStorage.getItem('artechUser');
+            if (user) {
+                if (loginBtn) loginBtn.hidden = true;
+                if (logoutBtn) logoutBtn.hidden = false;
+                if (userGreeting) {
+                    userGreeting.hidden = false;
+                    userGreeting.textContent = `Olá, ${localStorage.getItem('artechUserName') || user.split('@')[0]}`;
+                }
+            } else {
+                if (loginBtn) loginBtn.hidden = false;
+                if (logoutBtn) logoutBtn.hidden = true;
+                if (userGreeting) userGreeting.hidden = true;
+            }
+        }
+
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (event) => {
+                event.preventDefault();
+                localStorage.removeItem('artechUser');
+                localStorage.removeItem('artechUserName');
+                renderAuthState();
+            });
+        }
+
+        if (formLogin) {
+            formLogin.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const formData = new FormData(formLogin);
+
+                try {
+                    const response = await fetch('login.php', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const result = await response.json();
+                    if (result.status === 'success') {
+                        localStorage.setItem('artechUser', result.nome || 'Cliente');
+                        localStorage.setItem('artechUserName', result.nome || 'Cliente');
+                        renderAuthState();
+                        setMessage(result.message || 'Login realizado com sucesso.', 'success');
+                        window.location.href = '../index.html';
+                    } else {
+                        setMessage(result.message || 'E-mail ou senha inválidos.', 'error');
+                    }
+                } catch (error) {
+                    setMessage('Erro ao conectar com o servidor.', 'error');
+                }
+            });
+        }
+
+        renderAuthState();
+    </script>
+</body>
+</html>

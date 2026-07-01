@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro | ArTech</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="login-page">
+    <header>
+        <div class="header-inner">
+            <a class="brand" href="../index.html">
+                <img src="../img/logo.png" alt="ArTech" />
+            </a>
+            <nav class="nav-links" aria-label="Navegação principal">
+                <a href="../index.html">Início</a>
+                <a href="produtos.html">Produtos</a>
+                <a href="sobre.html">Sobre</a>
+                <a href="contato.html">Contato</a>
+            </nav>
+            <div class="header-tools">
+                <div class="cart-pill">
+                    <button id="cartButton" class="cart-button" type="button" aria-label="Abrir carrinho">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M3 4h2l2 10h10l2-6H8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+                            <circle cx="10" cy="19" r="1.4" fill="currentColor"></circle>
+                            <circle cx="17" cy="19" r="1.4" fill="currentColor"></circle>
+                        </svg>
+                        <span id="cartCount">0</span>
+                    </button>
+                </div>
+                <div class="auth-pill">
+                    <a class="login-btn" href="login.html">Entrar</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="login-section">
+            <div class="login-container">
+                <h2>Cadastro</h2>
+                <form id="cadastroForm" class="login-form" action="cadastro.php" method="POST">
+                    <input type="text" name="nome_completo" placeholder="Nome completo" required>
+                    <input type="email" name="email" placeholder="E-mail" required>
+                    <input type="text" name="cpf" placeholder="CPF" maxlength="11" required>
+                    <input type="text" name="telefone" placeholder="Telefone" required>
+                    <input type="date" name="data_nascimento" required>
+                    <input type="password" name="senha" placeholder="Senha" required>
+                    <input type="password" name="confirmar_senha" placeholder="Confirmar senha" required>
+                    <button type="submit">Cadastrar</button>
+                    <a class="login-link-btn" href="login.html">Já tenho conta</a>
+                    <p id="cadastroMessage" class="login-error"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div>
+                <h3>ArTech</h3>
+                <p>Automação inteligente para residências e negócios.</p>
+            </div>
+            <div>
+                <h4>Contato</h4>
+                <a href="mailto:contato@artech.com.br">contato@artech.com.br</a>
+                <a href="https://wa.me/5531999999999" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const form = document.getElementById('cadastroForm');
+        const message = document.getElementById('cadastroMessage');
+
+        if (form) {
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const formData = new FormData(form);
+
+                try {
+                    const response = await fetch('cadastro.php', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const result = await response.json();
+                    message.textContent = result.message || 'Operação concluída.';
+                    if (result.status === 'success') {
+                        form.reset();
+                        setTimeout(() => window.location.href = 'login.html', 1000);
+                    }
+                } catch (error) {
+                    message.textContent = 'Erro ao conectar com o servidor.';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

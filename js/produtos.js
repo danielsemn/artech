@@ -29,6 +29,7 @@ const customProjectBtn = document.querySelector('.custom-project-btn');
 let cartItems = [];
 
 function showToast(message) {
+  if (!toast) return;
   toast.textContent = message;
   toast.classList.add('show');
   clearTimeout(showToast.timeoutId);
@@ -36,6 +37,7 @@ function showToast(message) {
 }
 
 function openModal(button) {
+  if (!modal || !modalTitle || !modalPrice || !modalDescription || !modalDetails) return;
   modalTitle.textContent = button.dataset.title;
   modalPrice.textContent = button.dataset.price;
   modalDescription.textContent = button.dataset.description;
@@ -46,35 +48,58 @@ function openModal(button) {
 }
 
 function closeModalWindow() {
-  modal.hidden = true;
+  if (modal) {
+    modal.hidden = true;
+  }
   document.body.classList.remove('modal-open');
 }
 
+function setLoginMessage(message, type = 'error') {
+  if (!loginError) return;
+  loginError.textContent = message || '';
+  loginError.classList.remove('login-success');
+  if (type === 'success') {
+    loginError.classList.add('login-success');
+  }
+  loginError.hidden = !message;
+}
+
+function getLoginEndpoint() {
+  return window.location.pathname.includes('/html/') ? 'login.php' : 'html/login.php';
+}
+
 function openLoginModal() {
-  loginError.textContent = '';
+  if (!loginModal || !loginForm || !loginError) return;
+  setLoginMessage('', 'error');
   loginForm.reset();
   loginModal.hidden = false;
   document.body.classList.add('modal-open');
-  document.getElementById('loginName').focus();
+  document.getElementById('loginEmail').focus();
 }
 
 function closeLoginModalWindow() {
-  loginModal.hidden = true;
+  if (loginModal) {
+    loginModal.hidden = true;
+  }
   document.body.classList.remove('modal-open');
 }
 
 function openCartModal() {
+  if (!cartModal) return;
   renderCart();
   cartModal.hidden = false;
   document.body.classList.add('modal-open');
 }
 
 function closeCartModalWindow() {
-  cartModal.hidden = true;
+  if (cartModal) {
+    cartModal.hidden = true;
+  }
   document.body.classList.remove('modal-open');
 }
 
 function openProjectModal() {
+  if (!projectModal || !projectForm || !projectFormMessage) return;
   projectFormMessage.textContent = '';
   projectForm.reset();
   projectModal.hidden = false;
@@ -82,7 +107,9 @@ function openProjectModal() {
 }
 
 function closeProjectModalWindow() {
-  projectModal.hidden = true;
+  if (projectModal) {
+    projectModal.hidden = true;
+  }
   document.body.classList.remove('modal-open');
 }
 
@@ -95,6 +122,7 @@ function calculateTotal() {
 }
 
 function renderCart() {
+  if (!cartItemsList || !cartEmpty || !cartTotal || !checkoutBtn) return;
   cartItemsList.innerHTML = '';
   if (cartItems.length === 0) {
     cartEmpty.hidden = false;
@@ -123,7 +151,10 @@ function renderCart() {
 }
 
 function updateCartCount() {
-  document.getElementById('cartCount').textContent = cartItems.length;
+  const countEl = document.getElementById('cartCount');
+  if (countEl) {
+    countEl.textContent = cartItems.length;
+  }
 }
 
 // Eventos dos botões de detalhes
@@ -132,27 +163,37 @@ document.querySelectorAll('.details-btn').forEach((button) => {
 });
 
 // Fechamento de Modais
-closeModal.addEventListener('click', closeModalWindow);
-modal.addEventListener('click', (event) => {
-  if (event.target === modal) closeModalWindow();
-});
-closeLoginModal.addEventListener('click', closeLoginModalWindow);
-loginModal.addEventListener('click', (event) => {
-  if (event.target === loginModal) closeLoginModalWindow();
-});
-closeCartModal.addEventListener('click', closeCartModalWindow);
-cartModal.addEventListener('click', (event) => {
-  if (event.target === cartModal) closeCartModalWindow();
-});
-closeProjectModal.addEventListener('click', closeProjectModalWindow);
-projectModal.addEventListener('click', (event) => {
-  if (event.target === projectModal) closeProjectModalWindow();
-});
-
-customProjectBtn.addEventListener('click', openProjectModal);
+if (closeModal && modal) {
+  closeModal.addEventListener('click', closeModalWindow);
+  modal.addEventListener('click', (event) => {
+    if (event.target === modal) closeModalWindow();
+  });
+}
+if (closeLoginModal && loginModal) {
+  closeLoginModal.addEventListener('click', closeLoginModalWindow);
+  loginModal.addEventListener('click', (event) => {
+    if (event.target === loginModal) closeLoginModalWindow();
+  });
+}
+if (closeCartModal && cartModal) {
+  closeCartModal.addEventListener('click', closeCartModalWindow);
+  cartModal.addEventListener('click', (event) => {
+    if (event.target === cartModal) closeCartModalWindow();
+  });
+}
+if (closeProjectModal && projectModal) {
+  closeProjectModal.addEventListener('click', closeProjectModalWindow);
+  projectModal.addEventListener('click', (event) => {
+    if (event.target === projectModal) closeProjectModalWindow();
+  });
+}
+if (customProjectBtn) {
+  customProjectBtn.addEventListener('click', openProjectModal);
+}
 
 // ENVIO DO FORMULÁRIO DE PROPOSTAS (UNIFICADO COM BACK-END)
-projectForm.addEventListener('submit', async (event) => {
+if (projectForm && projectFormMessage) {
+  projectForm.addEventListener('submit', async (event) => {
   event.preventDefault();
 
   const name = document.getElementById('projectName').value.trim();
@@ -198,14 +239,15 @@ projectForm.addEventListener('submit', async (event) => {
     console.error('Erro:', error);
   }
 });
+}
 
 // Tecla ESC para fechar modais
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
-    if (!modal.hidden) closeModalWindow();
-    if (!loginModal.hidden) closeLoginModalWindow();
-    if (!cartModal.hidden) closeCartModalWindow();
-    if (!projectModal.hidden) closeProjectModalWindow();
+    if (modal && !modal.hidden) closeModalWindow();
+    if (loginModal && !loginModal.hidden) closeLoginModalWindow();
+    if (cartModal && !cartModal.hidden) closeCartModalWindow();
+    if (projectModal && !projectModal.hidden) closeProjectModalWindow();
   }
 });
 
@@ -224,65 +266,116 @@ document.querySelectorAll('.cart-btn').forEach((button) => {
   });
 });
 
-cartButton.addEventListener('click', () => {
-  openCartModal();
-});
+if (cartButton) {
+  cartButton.addEventListener('click', () => {
+    openCartModal();
+  });
+}
 
-cartItemsList.addEventListener('click', (event) => {
-  if (!event.target.matches('.cart-item-remove')) return;
-  const index = Number(event.target.dataset.index);
-  cartItems.splice(index, 1);
-  updateCartCount();
-  renderCart();
-  showToast('Item removido do carrinho.');
-});
+if (cartItemsList) {
+  cartItemsList.addEventListener('click', (event) => {
+    if (!event.target.matches('.cart-item-remove')) return;
+    const index = Number(event.target.dataset.index);
+    cartItems.splice(index, 1);
+    updateCartCount();
+    renderCart();
+    showToast('Item removido do carrinho.');
+  });
+}
 
-checkoutBtn.addEventListener('click', () => {
-  if (cartItems.length === 0) return;
-  cartItems = [];
-  updateCartCount();
-  renderCart();
-  showToast('Compra finalizada com sucesso!');
-});
+if (checkoutBtn) {
+  checkoutBtn.addEventListener('click', () => {
+    if (cartItems.length === 0) return;
+    cartItems = [];
+    updateCartCount();
+    renderCart();
+    showToast('Compra finalizada com sucesso!');
+  });
+}
 
 // Autenticação (Login fictício)
+function getDisplayName() {
+  const storedName = localStorage.getItem('artechUserName');
+  if (storedName) return storedName;
+
+  const storedEmail = localStorage.getItem('artechUser');
+  if (storedEmail) return storedEmail.split('@')[0];
+
+  return 'usuário';
+}
+
 function renderAuth() {
   const user = localStorage.getItem('artechUser');
-  if (user) {
-    userGreeting.hidden = false;
-    userGreeting.textContent = `Olá, ${user}`;
-    logoutBtn.hidden = false;
-    loginBtn.hidden = true;
-  } else {
-    userGreeting.hidden = true;
-    logoutBtn.hidden = true;
-    loginBtn.hidden = false;
+  const isLogged = Boolean(user);
+
+  if (userGreeting) {
+    userGreeting.textContent = isLogged ? `Olá, ${getDisplayName()}` : '';
+    userGreeting.hidden = !isLogged;
+    userGreeting.style.display = isLogged ? 'inline-flex' : 'none';
+  }
+  if (logoutBtn) {
+    logoutBtn.hidden = !isLogged;
+    logoutBtn.style.display = isLogged ? 'inline-flex' : 'none';
+  }
+  if (loginBtn) {
+    loginBtn.hidden = isLogged;
+    loginBtn.style.display = isLogged ? 'none' : 'inline-flex';
   }
 }
 
-loginBtn.addEventListener('click', () => {
-  openLoginModal();
-});
+if (loginBtn) {
+  loginBtn.addEventListener('click', () => {
+    openLoginModal();
+  });
+}
 
-logoutBtn.addEventListener('click', () => {
-  localStorage.removeItem('artechUser');
-  renderAuth();
-  showToast('Logout realizado com sucesso.');
-});
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', () => {
+    localStorage.removeItem('artechUser');
+    localStorage.removeItem('artechUserName');
+    renderAuth();
+    showToast('Logout realizado com sucesso.');
+  });
+}
 
-loginForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const name = document.getElementById('loginName').value.trim();
-  const email = document.getElementById('loginEmail').value.trim();
-  if (!name || !email) {
-    loginError.textContent = 'Preencha nome e e-mail para entrar.';
-    return;
-  }
+if (loginForm && loginError) {
+  loginForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value.trim();
 
-  localStorage.setItem('artechUser', name);
-  renderAuth();
-  closeLoginModalWindow();
-  showToast(`Bem-vindo(a), ${name}!`);
-});
+    if (!email || !password) {
+      setLoginMessage('Preencha e-mail e senha para entrar.', 'error');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('senha', password);
+
+    try {
+      const response = await fetch(getLoginEndpoint(), {
+        method: 'POST',
+        body: formData
+      });
+      const result = await response.json();
+
+      if (result.status === 'success') {
+        const displayName = result.nome || email.split('@')[0];
+        localStorage.setItem('artechUser', email);
+        localStorage.setItem('artechUserName', displayName);
+        renderAuth();
+        setLoginMessage(result.message || 'Login realizado com sucesso.', 'success');
+        closeLoginModalWindow();
+        showToast(`Bem-vindo(a), ${displayName}!`);
+      } else {
+        setLoginMessage(result.message || 'E-mail ou senha inválidos.', 'error');
+      }
+    } catch (error) {
+      console.error('Erro no login:', error);
+      setLoginMessage('Erro ao conectar com o servidor.', 'error');
+    }
+  });
+}
 
 renderAuth();

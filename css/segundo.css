@@ -273,11 +273,21 @@
   cursor: pointer;
 }
 
-.login-error {
+.login-error,
+.login-success {
   width: 100%;
   text-align: right;
-  color: #ff7b7b;
   font-size: 0.92rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.login-error {
+  color: #ff7b7b;
+}
+
+.login-success {
+  color: #5de68b;
 }
 
 .user-greeting {

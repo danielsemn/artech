@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sobre | ArTech - Automação Inteligente</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/sobre.css" />
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="header-inner">
+            <a class="brand" href="../index.html">
+                <img src="../img/logo.png" alt="ArTech" />
+            </a>
+            <nav class="nav-links" aria-label="Navegação principal">
+                <a href="../index.html">Início</a>
+                <a href="produtos.html">Produtos</a>
+                <a href="sobre.html">Sobre</a>
+                <a href="contato.html">Contato</a>
+            </nav>
+            <div class="header-tools">
+                <div class="cart-pill">
+                    <button id="cartButton" class="cart-button" type="button" aria-label="Abrir carrinho">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M3 4h2l2 10h10l2-6H8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+                            <circle cx="10" cy="19" r="1.4" fill="currentColor"></circle>
+                            <circle cx="17" cy="19" r="1.4" fill="currentColor"></circle>
+                        </svg>
+                        <span id="cartCount">0</span>
+                    </button>
+                </div>
+                <div class="auth-pill">
+                    <button id="loginBtn" class="login-btn" type="button">Entrar</button>
+                    <span id="userGreeting" class="user-greeting" hidden></span>
+                    <button id="logoutBtn" class="logout-btn" type="button" hidden>Sair</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="loginModal" class="modal popup-modal" hidden>
+        <div class="modal-content">
+            <button class="modal-close" id="closeLoginModal" type="button" aria-label="Fechar">×</button>
+            <p class="eyebrow">Entrar</p>
+            <form id="loginForm" class="login-form">
+                <input id="loginEmail" type="email" placeholder="E-mail" />
+                <input id="loginPassword" type="password" placeholder="Senha" />
+                <button type="submit">Entrar</button>
+                <a class="login-link-btn" href="cadastro.html">Cadastrar</a>
+                <p id="loginError" class="login-error"></p>
+            </form>
+        </div>
+    </div>
+
+    <main>
+        <!-- HERO SOBRE -->
+        <section class="hero-sobre">
+            <div class="sobre-container">
+                <h1 class="textodestaque">Sobre a ArTech</h1>
+                <p class="microtexto">
+                    Transformando o futuro através da automação inteligente e inovação tecnológica
+                </p>
+            </div>
+        </section>
+
+        <!-- MISSÃO E VISÃO -->
+        <section class="missao-secao">
+            <div class="missao-container">
+                <div class="missao-card">
+                    <div class="missao-icon">🚀</div>
+                    <h3>Nossa Missão</h3>
+                    <p>
+                        Democratizar a tecnologia de automação, tornando soluções inteligentes acessíveis para todos.
+                        Acreditamos que cada pessoa e empresa merece ter controle total sobre seus ambientes através de
+                        tecnologia de ponta.
+                    </p>
+                </div>
+
+                <div class="missao-card">
+                    <div class="missao-icon">💡</div>
+                    <h3>Nossa Visão</h3>
+                    <p>
+                        Ser a referência em soluções de automação residencial e comercial na América Latina, oferecendo
+                        produtos de qualidade, suporte excepcional e inovação contínua.
+                    </p>
+                </div>
+
+                <div class="missao-card">
+                    <div class="missao-icon">⚡</div>
+                    <h3>Nossos Valores</h3>
+                    <p>
+                        Inovação, qualidade, sustentabilidade e compromisso com o cliente. Buscamos sempre entregar
+                        soluções que façam diferença real na vida das pessoas.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- O QUE FAZEMOS -->
+        <section class="o-que-fazemos">
+            <div class="fazemos-container">
+                <h2>O Que Fazemos</h2>
+
+                <div class="fazemos-grid">
+                    <div class="fazemos-card">
+                        <div class="fazemos-numero">01</div>
+                        <h4>Desenvolvemos Kits de Automação</h4>
+                        <p>
+                            Soluções prontas para usar com Arduino e ESP32, permitindo que você construa sistemas
+                            inteligentes sem complexidade técnica excessiva.
+                        </p>
+                    </div>
+
+                    <div class="fazemos-card">
+                        <div class="fazemos-numero">02</div>
+                        <h4>Oferecemos Projetos Customizados</h4>
+                        <p>
+                            Desenvolvemos projetos personalizados para sua casa ou empresa, desde iluminação inteligente
+                            até sistemas completos de segurança e monitoramento.
+                        </p>
+                    </div>
+
+                    <div class="fazemos-card">
+                        <div class="fazemos-numero">03</div>
+                        <h4>Suporte e Consultoria</h4>
+                        <p>
+                            Oferecemos suporte técnico contínuo, documentação completa e consultoria especializada para
+                            garantir o sucesso de seu projeto.
+                        </p>
+                    </div>
+
+                    <div class="fazemos-card">
+                        <div class="fazemos-numero">04</div>
+                        <h4>Educação em Automação</h4>
+                        <p>
+                            Criamos recursos educacionais e tutoriais para que você possa aprender e dominar a
+                            tecnologia de automação inteligente.
+                        </p>
+                    </div>
+
+                    <div class="fazemos-card">
+                        <div class="fazemos-numero">05</div>
+                        <h4>Eficiência Energética</h4>
+                        <p>
+                            Nossas soluções reduzem consumo de energia, diminuem custos operacionais e contribuem para
+                            um futuro mais sustentável.
+                        </p>
+                    </div>
+
+                    <div class="fazemos-card">
+                        <div class="fazemos-numero">06</div>
+                        <h4>Integração de Sistemas</h4>
+                        <p>
+                            Conectamos diferentes plataformas e dispositivos, criando um ecossistema inteligente e
+                            unificado para sua residência ou negócio.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHAMADA PARA AÇÃO -->
+        <section class="cta-sobre">
+            <div class="cta-container">
+                <h2>Pronto para Revolucionar Seu Ambiente?</h2>
+                <p class="cta-incentivo">
+                    Não deixe para depois aquilo que pode transformar sua vida hoje. <strong>A tecnologia de automação
+                        está ao seu alcance!</strong>
+                    Escolha um de nossos produtos de qualidade, comece sua jornada rumo à inteligência e eficiência, e
+                    descubra como a automação pode economizar seu tempo, proteger sua família e valorizar seu
+                    patrimônio.
+                    <em>O futuro é agora, e ele está mais acessível do que nunca!</em>
+                </p>
+                <a href="../index.html#produtos" class="btn">
+                    Explorar Produtos
+                </a>
+            </div>
+        </section>
+
+        <!-- DIFERENCIAIS -->
+        <section class="diferenciais">
+            <div class="diferenciais-container">
+                <h2>Por Que Escolher ArTech?</h2>
+
+                <div class="diferenciais-grid">
+                    <div class="diferencial-item">
+                        <div class="diferencial-check">✓</div>
+                        <h4>Qualidade Garantida</h4>
+                        <p>Componentes de primeira linha e testes rigorosos em cada produto</p>
+                    </div>
+
+                    <div class="diferencial-item">
+                        <div class="diferencial-check">✓</div>
+                        <h4>Preços Competitivos</h4>
+                        <p>Melhor relação custo-benefício do mercado em automação</p>
+                    </div>
+
+                    <div class="diferencial-item">
+                        <div class="diferencial-check">✓</div>
+                        <h4>Entrega Rápida</h4>
+                        <p>Envios para todo o país com rastreamento completo</p>
+                    </div>
+
+                    <div class="diferencial-item">
+                        <div class="diferencial-check">✓</div>
+                        <h4>Comunidade Ativa</h4>
+                        <p>Fórum e grupos de usuários para compartilhar experiências</p>
+                    </div>
+
+                    <div class="diferencial-item">
+                        <div class="diferencial-check">✓</div>
+                        <h4>Documentação Completa</h4>
+                        <p>Manuais, vídeos e tutoriais para cada produto</p>
+                    </div>
+
+                    <div class="diferencial-item">
+                        <div class="diferencial-check">✓</div>
+                        <h4>Atendimento Premium</h4>
+                        <p>Suporte técnico especializado via email e WhatsApp</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="cartModal" class="modal popup-modal" hidden>
+        <div class="modal-content">
+            <button class="modal-close" id="closeCartModal" type="button" aria-label="Fechar">×</button>
+            <p class="eyebrow">Carrinho</p>
+            <div id="cartEmpty" class="cart-empty">Seu carrinho está vazio.</div>
+            <ul id="cartItemsList" class="cart-items-list"></ul>
+            <div id="cartSummary" class="cart-summary">
+                <span>Total</span>
+                <strong id="cartTotal">R$ 0,00</strong>
+            </div>
+            <button id="checkoutBtn" class="action-btn cart-checkout-btn" type="button">Finalizar compra</button>
+        </div>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div>
+                <h3>ArTech</h3>
+                <p>Automação inteligente para residências e negócios.</p>
+            </div>
+            <div>
+                <h4>Contato</h4>
+                <a href="mailto:contato@artech.com.br">contato@artech.com.br</a>
+                <a href="https://wa.me/5531999999999" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../js/produtos.js"></script>
+</body>
+
+</html>

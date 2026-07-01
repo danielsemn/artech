@@ -1,0 +1,291 @@
+/* =========================
+   PÁGINA SOBRE - ESTILOS ESPECÍFICOS
+========================= */
+
+/* HERO SOBRE */
+.hero-sobre {
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(0, 212, 255, 0.05));
+  border-bottom: 1px solid var(--border);
+}
+
+.sobre-container {
+  width: min(var(--max), 100%);
+  text-align: center;
+}
+
+.sobre-container h1 {
+  margin-bottom: 1.5rem;
+}
+
+.sobre-container p {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* MISSÃO E VISÃO */
+.missao-secao {
+  padding: 4rem 2rem;
+}
+
+.missao-container {
+  width: min(var(--max), 100%);
+  margin: 0 auto;
+  
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.missao-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  
+  transition: 0.3s;
+}
+
+.missao-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(0, 212, 255, 0.3);
+  background: rgba(0, 212, 255, 0.05);
+}
+
+.missao-icon {
+  font-size: 3rem;
+  text-align: center;
+}
+
+.missao-card h3 {
+  font-size: 1.4rem;
+  color: var(--accent);
+  text-align: center;
+}
+
+.missao-card p {
+  color: var(--text-muted);
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+
+/* O QUE FAZEMOS */
+.o-que-fazemos {
+  padding: 4rem 2rem;
+  background: rgba(0, 212, 255, 0.02);
+}
+
+.fazemos-container {
+  width: min(var(--max), 100%);
+  margin: 0 auto;
+}
+
+.fazemos-container h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 3rem;
+}
+
+.fazemos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.fazemos-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  
+  transition: 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.fazemos-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+.fazemos-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(0, 212, 255, 0.3);
+}
+
+.fazemos-numero {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--accent);
+  opacity: 0.3;
+}
+
+.fazemos-card h4 {
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.fazemos-card p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* CHAMADA PARA AÇÃO */
+.cta-sobre {
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(0, 212, 255, 0.08));
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.cta-container {
+  width: min(var(--max), 100%);
+  margin: 0 auto;
+  
+  text-align: center;
+}
+
+.cta-container h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.cta-incentivo {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  line-height: 1.8;
+}
+
+.cta-incentivo strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.cta-incentivo em {
+  color: var(--primary);
+  font-style: italic;
+}
+
+.cta-container .btn {
+  display: inline-flex;
+}
+
+/* DIFERENCIAIS */
+.diferenciais {
+  padding: 4rem 2rem;
+}
+
+.diferenciais-container {
+  width: min(var(--max), 100%);
+  margin: 0 auto;
+}
+
+.diferenciais-container h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 3rem;
+}
+
+.diferenciais-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.diferencial-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  
+  transition: 0.3s;
+}
+
+.diferencial-item:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 212, 255, 0.3);
+  background: rgba(0, 212, 255, 0.03);
+}
+
+.diferencial-check {
+  font-size: 1.8rem;
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.diferencial-item h4 {
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.diferencial-item p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+  .hero-sobre {
+    min-height: 40vh;
+    padding: 3rem 1.5rem;
+  }
+
+  .sobre-container h1 {
+    font-size: 1.8rem;
+  }
+
+  .missao-container,
+  .fazemos-grid,
+  .diferenciais-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .cta-incentivo {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .missao-card,
+  .fazemos-card,
+  .diferencial-item {
+    padding: 1.5rem;
+  }
+
+  .fazemos-numero {
+    font-size: 2rem;
+  }
+}
