@@ -87,13 +87,14 @@
                 </article>
 
                 <article class="produto-card">
-                    <img src="../img/produtos/exemplo.jpg" alt="Kit de sensores" />
+                    <img src="../img/produtos/sensoresTemperatura.png" alt="Kit de sensores" />
                     <h3>Kit de Sensores Inteligentes</h3>
                     <p>Conjunto de sensores para coleta de dados em tempo real e análise de desempenho.</p>
                     <div class="produto-preco">R$ 1.240,00</div>
                     <div class="produto-actions">
                         <button class="action-btn details-btn" type="button" data-title="Kit de Sensores Inteligentes"
                             data-price="R$ 1.240,00"
+                            data-image="../img/produtos/exemplo.jpg"
                             data-description="Conjunto completo para levantamento preciso de dados em ambientes comerciais e industriais."
                             data-details="• Sensores de presença • Monitoramento remoto • Precisão superior">Ver detalhes</button>
                         <button class="action-btn cart-btn" type="button" data-name="Kit de Sensores Inteligentes"
@@ -103,13 +104,14 @@
                 </article>
 
                 <article class="produto-card">
-                    <img src="../img/produtos/exemplo.jpg" alt="Painel de supervisão" />
+                    <img src="../img/produtos/painelSupervisao.png" alt="Painel de supervisão" />
                     <h3>Painel de Supervisão</h3>
                     <p>Interface visual para monitoramento e controle remoto da operação.</p>
                     <div class="produto-preco">R$ 2.150,00</div>
                     <div class="produto-actions">
                         <button class="action-btn details-btn" type="button" data-title="Painel de Supervisão"
                             data-price="R$ 2.150,00"
+                            data-image="../img/produtos/exemplo.jpg"
                             data-description="Painel intuitivo para visualizar processos, alarmes e indicadores de produção em tempo real."
                             data-details="• Dashboard personalizado • Alertas automáticos • Acesso remoto">Ver detalhes</button>
                         <button class="action-btn cart-btn" type="button" data-name="Painel de Supervisão"
@@ -119,13 +121,14 @@
                 </article>
 
                 <article class="produto-card">
-                    <img src="../img/produtos/exemplo.jpg" alt="Central de energia" />
+                    <img src="../img/produtos/centralEnergia.png" alt="Central de energia" />
                     <h3>Central de Energia</h3>
                     <p>Estrutura eficiente para distribuição e gestão energética em ambientes modernos.</p>
                     <div class="produto-preco">R$ 3.480,00</div>
                     <div class="produto-actions">
                         <button class="action-btn details-btn" type="button" data-title="Central de Energia"
                             data-price="R$ 3.480,00"
+                            data-image="../img/produtos/exemplo.jpg"
                             data-description="Solução prática para controlar e otimizar o consumo energético em instalações maiores."
                             data-details="• Gestão inteligente • Baixo desperdício • Segurança elétrica">Ver detalhes</button>
                         <button class="action-btn cart-btn" type="button" data-name="Central de Energia"
@@ -142,6 +145,7 @@
                     <div class="produto-actions">
                         <button class="action-btn details-btn" type="button" data-title="Dispositivo IoT"
                             data-price="R$ 820,00"
+                            data-image="../img/produtos/exemplo.jpg"
                             data-description="Equipamento compacto para conectar ativos à internet e acompanhar o desempenho em tempo real."
                             data-details="• Conectividade Wi-Fi • Dados em nuvem • Alertas automáticos">Ver detalhes</button>
                         <button class="action-btn cart-btn" type="button" data-name="Dispositivo IoT"
@@ -157,10 +161,14 @@
         <div class="modal-content">
             <button class="modal-close" id="closeModal" type="button" aria-label="Fechar">×</button>
             <p class="eyebrow">Detalhes do produto</p>
+            <img id="modalImage" class="modal-product-image" src="" alt="Imagem do produto" />
             <h3 id="modalTitle">Produto</h3>
             <div id="modalPrice" class="produto-preco"></div>
             <p id="modalDescription"></p>
             <ul id="modalDetails"></ul>
+            <div class="product-modal-actions">
+              <button id="modalAddBtn" class="action-btn cart-btn btn-small" type="button">🛒 Adicionar ao carrinho</button>
+            </div>
         </div>
     </div>
 
@@ -201,6 +209,10 @@
                 <span>Total</span>
                 <strong id="cartTotal">R$ 0,00</strong>
             </div>
+            <div id="cartAuthMessage" class="cart-auth-message" hidden>
+                <p>É preciso fazer login para finalizar a compra.</p>
+                <button id="cartLoginBtn" class="action-btn login-from-cart-btn" type="button">Fazer login</button>
+            </div>
             <button id="checkoutBtn" class="action-btn cart-checkout-btn" type="button">Finalizar compra</button>
         </div>
     </div>
@@ -209,15 +221,27 @@
 
     <footer class="site-footer">
         <div class="footer-content">
-            <div>
+            <div class="footer-column">
                 <h3>ArTech</h3>
-                <p>Soluções inteligentes para automação e controle.</p>
+                <p>Soluções inteligentes para automação e controle em residências, empresas e projetos maker.</p>
             </div>
-            <div>
+            <div class="footer-column">
+                <h4>Links</h4>
+                <a href="../index.html">Início</a>
+                <a href="produtos.html">Produtos</a>
+                <a href="sobre.html">Sobre</a>
+                <a href="contato.html">Contato</a>
+            </div>
+            <div class="footer-column">
                 <h4>Contato</h4>
                 <a href="mailto:contato@artech.com.br">contato@artech.com.br</a>
-                <a href="https://wa.me/5531999999999" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                <a href="https://wa.me/553140028922" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                <span>Seg-Sex: 09h–18h</span>
             </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 ArTech. Todos os direitos reservados.</span>
+          <span>Entrega de soluções em automação e projetos sob medida.</span>
         </div>
     </footer>
 

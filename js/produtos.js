@@ -1,11 +1,13 @@
 const cartButton = document.getElementById('cartButton');
 const cartCount = document.getElementById('cartCount');
 const modal = document.getElementById('productModal');
+const modalImage = document.getElementById('modalImage');
 const closeModal = document.getElementById('closeModal');
 const modalTitle = document.getElementById('modalTitle');
 const modalPrice = document.getElementById('modalPrice');
 const modalDescription = document.getElementById('modalDescription');
 const modalDetails = document.getElementById('modalDetails');
+const modalAddBtn = document.getElementById('modalAddBtn');
 const toast = document.getElementById('toast');
 const loginBtn = document.getElementById('loginBtn');
 const loginModal = document.getElementById('loginModal');
@@ -19,6 +21,8 @@ const closeCartModal = document.getElementById('closeCartModal');
 const cartItemsList = document.getElementById('cartItemsList');
 const cartEmpty = document.getElementById('cartEmpty');
 const cartTotal = document.getElementById('cartTotal');
+const cartAuthMessage = document.getElementById('cartAuthMessage');
+const cartLoginBtn = document.getElementById('cartLoginBtn');
 const checkoutBtn = document.getElementById('checkoutBtn');
 const projectModal = document.getElementById('projectModal');
 const closeProjectModal = document.getElementById('closeProjectModal');
@@ -37,12 +41,16 @@ function showToast(message) {
 }
 
 function openModal(button) {
-  if (!modal || !modalTitle || !modalPrice || !modalDescription || !modalDetails) return;
+  if (!modal || !modalTitle || !modalPrice || !modalDescription || !modalDetails || !modalImage || !modalAddBtn) return;
   modalTitle.textContent = button.dataset.title;
   modalPrice.textContent = button.dataset.price;
   modalDescription.textContent = button.dataset.description;
   const items = button.dataset.details.split('•').filter(Boolean);
   modalDetails.innerHTML = items.map((item) => `<li>${item.trim()}</li>`).join('');
+  modalImage.src = button.dataset.image || '../img/produtos/exemplo.jpg';
+  modalImage.alt = button.dataset.title || 'Imagem do produto';
+  modalAddBtn.dataset.name = button.dataset.title;
+  modalAddBtn.dataset.price = button.dataset.price;
   modal.hidden = false;
   document.body.classList.add('modal-open');
 }
@@ -68,13 +76,21 @@ function getLoginEndpoint() {
   return window.location.pathname.includes('/html/') ? 'login.php' : 'html/login.php';
 }
 
-function openLoginModal() {
+function isLoggedIn() {
+  return Boolean(localStorage.getItem('artechUser'));
+}
+
+function openLoginModal(message) {
   if (!loginModal || !loginForm || !loginError) return;
   setLoginMessage('', 'error');
   loginForm.reset();
+  if (message) {
+    setLoginMessage(message, 'error');
+  }
   loginModal.hidden = false;
   document.body.classList.add('modal-open');
-  document.getElementById('loginEmail').focus();
+  const emailInput = document.getElementById('loginEmail');
+  if (emailInput) emailInput.focus();
 }
 
 function closeLoginModalWindow() {
@@ -122,8 +138,9 @@ function calculateTotal() {
 }
 
 function renderCart() {
-  if (!cartItemsList || !cartEmpty || !cartTotal || !checkoutBtn) return;
+  if (!cartItemsList || !cartEmpty || !cartTotal || !checkoutBtn || !cartAuthMessage) return;
   cartItemsList.innerHTML = '';
+  cartAuthMessage.hidden = true;
   if (cartItems.length === 0) {
     cartEmpty.hidden = false;
     cartTotal.textContent = 'R$ 0,00';
@@ -167,6 +184,20 @@ if (closeModal && modal) {
   closeModal.addEventListener('click', closeModalWindow);
   modal.addEventListener('click', (event) => {
     if (event.target === modal) closeModalWindow();
+  });
+}
+
+if (modalAddBtn) {
+  modalAddBtn.addEventListener('click', () => {
+    const name = modalAddBtn.dataset.name;
+    const priceText = modalAddBtn.dataset.price;
+    if (!name || !priceText) return;
+    const itemPrice = Number(priceText.replace(/[R$\.\s]/g, '').replace(',', '.'));
+    cartItems.push({ name, price: itemPrice });
+    updateCartCount();
+    renderCart();
+    showToast(`${name} adicionado ao carrinho.`);
+    closeModalWindow();
   });
 }
 if (closeLoginModal && loginModal) {
@@ -257,11 +288,9 @@ document.querySelectorAll('.cart-btn').forEach((button) => {
     if (!button.dataset.price) return; // Evita erros caso clique em botões sem preço
     
     const itemPrice = Number(button.dataset.price.replace(/[R$\.\s]/g, '').replace(',', '.'));
-    cartItems.push({
-      name: button.dataset.name,
-      price: itemPrice,
-    });
+    cartItems.push({ name: button.dataset.name, price: itemPrice });
     updateCartCount();
+    renderCart();
     showToast(`${button.dataset.name} adicionado ao carrinho.`);
   });
 });
@@ -286,6 +315,12 @@ if (cartItemsList) {
 if (checkoutBtn) {
   checkoutBtn.addEventListener('click', () => {
     if (cartItems.length === 0) return;
+    if (!isLoggedIn()) {
+      if (cartAuthMessage) {
+        cartAuthMessage.hidden = false;
+      }
+      return;
+    }
     cartItems = [];
     updateCartCount();
     renderCart();
@@ -325,6 +360,13 @@ function renderAuth() {
 
 if (loginBtn) {
   loginBtn.addEventListener('click', () => {
+    openLoginModal();
+  });
+}
+
+if (cartLoginBtn) {
+  cartLoginBtn.addEventListener('click', () => {
+    closeCartModalWindow();
     openLoginModal();
   });
 }
@@ -378,4 +420,33 @@ if (loginForm && loginError) {
   });
 }
 
+function setupPageTransitions() {
+  const body = document.body;
+  if (!body) return;
+
+  const internalLinks = Array.from(document.querySelectorAll('a[href]:not([target="_blank"]):not([href^="#"]):not([href^="mailto:"]):not([href^="tel:"])'));
+
+  internalLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('javascript:')) return;
+
+      const targetUrl = new URL(href, window.location.href);
+      if (targetUrl.origin !== window.location.origin) return;
+      if (targetUrl.href === window.location.href.split('#')[0]) return;
+
+      event.preventDefault();
+      body.classList.add('page-transition-exit');
+      setTimeout(() => {
+        window.location.href = targetUrl.href;
+      }, 120);
+    });
+  });
+
+  requestAnimationFrame(() => {
+    body.classList.add('page-transition-ready');
+  });
+}
+
 renderAuth();
+setupPageTransitions();
