@@ -467,59 +467,96 @@ section h2 {
   margin-bottom: 2rem;
 }
 
+
 /* =========================
-   FOOTER
+   FOOTER (REFRESH)
+   Visual atualizado: layout em grid, melhor contraste e responsivo
 ========================= */
 
 footer {
-  text-align: center;
-  padding: 2rem;
-  border-top: 1px solid var(--border);
+  padding: 0;
   color: var(--text-muted);
 }
 
 .site-footer {
-  padding: 2rem 1rem;
-  background: rgba(2, 8, 23, 0.75);
+  background: linear-gradient(180deg, rgba(2,8,23,0.9), rgba(5,12,30,0.92));
+  border-top: 1px solid rgba(255,255,255,0.04);
+  color: var(--text-muted);
 }
 
 .site-footer .footer-content {
   max-width: var(--max);
   margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 2rem;
-  flex-wrap: wrap;
+  padding: 2.25rem 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem 2.5rem;
+  align-items: start;
 }
 
-/* Centraliza os contatos (coluna direita) e os cards de contato */
-.site-footer .footer-column:last-child {
-  text-align: center;
-}
-
-.missao-container .missao-card {
-  text-align: center;
+.site-footer .footer-column {
+  min-width: 160px;
 }
 
 .site-footer h3,
 .site-footer h4 {
   color: var(--text);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.6rem;
+  font-weight: 800;
 }
 
-.site-footer p,
-.site-footer a {
+.site-footer p {
   color: var(--text-muted);
+  line-height: 1.5;
 }
 
 .site-footer a {
   display: block;
-  margin-top: 0.3rem;
+  margin: 0.35rem 0;
+  color: var(--text-muted);
+  transition: color 0.18s ease, transform 0.12s ease;
+  font-weight: 600;
 }
 
 .site-footer a:hover {
   color: var(--accent);
+  transform: translateX(4px);
+}
+
+.site-footer .footer-column.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.site-footer .footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.03);
+  max-width: var(--max);
+  margin: 0 auto;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.95rem 1rem 1.5rem;
+  font-size: 0.92rem;
+  color: rgba(255,255,255,0.65);
+  flex-wrap: wrap;
+}
+
+.site-footer .footer-bottom span {
+  opacity: 0.9;
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .site-footer .footer-content {
+    padding: 1.5rem;
+    gap: 1rem 1rem;
+  }
+  .site-footer .footer-bottom {
+    font-size: 0.88rem;
+    gap: 0.6rem;
+  }
 }
 
 .login-page {
